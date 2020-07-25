@@ -13,6 +13,7 @@ public class game {
     private peg[][] conf;
     private boolean gameOver_;
     private boolean win_;
+    private boolean monochrome_;
 
     public game(){
         master = new code[4];
@@ -20,6 +21,7 @@ public class game {
         conf = new peg[12][4];
         turn_ = 1;
         gameOver_ = false;
+        monochrome_ = false;
         pegs_ = 0;
         setMaster();
     }
@@ -36,6 +38,10 @@ public class game {
         }
     }
 
+    public void setMonochrome_(boolean mono){
+        monochrome_ = mono;
+    }
+
     public void setGuess(code a, code b, code c, code d){
         guess[turn_-1][0] = a;
         guess[turn_-1][1] = b;
@@ -44,7 +50,7 @@ public class game {
     }
 
     public void nextTurn(){
-        if(turn_ < 12)
+        if(turn_ < 13)
         turn_++;
     }
 
@@ -103,6 +109,7 @@ public class game {
         }
     }
 
+    //Monochrome it up
     public String printPegs(int t){
         String p = new String();
         int count = 0;
@@ -112,35 +119,58 @@ public class game {
             }
         }
         for(int i = 0; i < count; i++){
-            if(conf[t][i] == peg.red)
+            if(conf[t][i] == peg.red && !monochrome_)
                 p+= text.ANSI_RED + text.ANSI_BULLET + text.ANSI_RESET;
+            else if(conf[t][i] == peg.red && monochrome_)
+                p+= "R";
+            else if(conf[t][i] == peg.white && monochrome_)
+                p+= "W";
             else
                 p+= text.ANSI_WHITE + text.ANSI_BULLET + text.ANSI_RESET;
         }
         return p;
     }
+    //Coloured output
     public void printGuesses(){
         for(int j = 0; j < turn_; j++){
             String codeGuess = new String();
             for(int i = 0; i<guess[j].length;i++){
                 switch (guess[j][i]){
                     case purple:
-                        codeGuess += text.ANSI_PURPLE + text.ANSI_BULLET + text.ANSI_RESET;
+                        if(!monochrome_)
+                            codeGuess += text.ANSI_PURPLE + text.ANSI_BULLET + text.ANSI_RESET;
+                        else
+                            codeGuess += "P";
                         break;
                     case red:
-                        codeGuess += text.ANSI_RED + text.ANSI_BULLET + text.ANSI_RESET;
+                        if(!monochrome_)
+                            codeGuess += text.ANSI_RED + text.ANSI_BULLET + text.ANSI_RESET;
+                        else
+                            codeGuess += "R";
                         break;
                     case blue:
-                        codeGuess += text.ANSI_BLUE + text.ANSI_BULLET + text.ANSI_RESET;
+                        if(!monochrome_)
+                            codeGuess += text.ANSI_BLUE + text.ANSI_BULLET + text.ANSI_RESET;
+                        else
+                            codeGuess += "B";
                         break;
                     case yellow:
-                        codeGuess += text.ANSI_YELLOW + text.ANSI_BULLET + text.ANSI_RESET;
+                        if(!monochrome_)
+                            codeGuess += text.ANSI_YELLOW + text.ANSI_BULLET + text.ANSI_RESET;
+                        else
+                            codeGuess += "Y";
                         break;
                     case white:
-                        codeGuess += text.ANSI_WHITE + text.ANSI_BULLET + text.ANSI_RESET;
+                        if(!monochrome_)
+                            codeGuess += text.ANSI_WHITE + text.ANSI_BULLET + text.ANSI_RESET;
+                        else
+                            codeGuess += "W";
                         break;
                     case green:
-                        codeGuess += text.ANSI_GREEN + text.ANSI_BULLET + text.ANSI_RESET;
+                        if(!monochrome_)
+                            codeGuess += text.ANSI_GREEN + text.ANSI_BULLET + text.ANSI_RESET;
+                        else
+                            codeGuess += "G";
                         break;
                 }
             }
@@ -153,22 +183,40 @@ public class game {
         for (int i = 0; i < master.length; i++) {
             switch (master[i]) {
                 case purple:
-                    codeGuess += text.ANSI_PURPLE + text.ANSI_BULLET + text.ANSI_RESET;
+                    if(!monochrome_)
+                        codeGuess += text.ANSI_PURPLE + text.ANSI_BULLET + text.ANSI_RESET;
+                    else
+                        codeGuess += "P";
                     break;
                 case red:
-                    codeGuess += text.ANSI_RED + text.ANSI_BULLET + text.ANSI_RESET;
+                    if(!monochrome_)
+                        codeGuess += text.ANSI_RED + text.ANSI_BULLET + text.ANSI_RESET;
+                    else
+                        codeGuess += "R";
                     break;
                 case blue:
-                    codeGuess += text.ANSI_BLUE + text.ANSI_BULLET + text.ANSI_RESET;
+                    if(!monochrome_)
+                        codeGuess += text.ANSI_BLUE + text.ANSI_BULLET + text.ANSI_RESET;
+                    else
+                        codeGuess += "B";
                     break;
                 case yellow:
-                    codeGuess += text.ANSI_YELLOW + text.ANSI_BULLET + text.ANSI_RESET;
+                    if(!monochrome_)
+                        codeGuess += text.ANSI_YELLOW + text.ANSI_BULLET + text.ANSI_RESET;
+                    else
+                        codeGuess += "Y";
                     break;
                 case white:
-                    codeGuess += text.ANSI_WHITE + text.ANSI_BULLET + text.ANSI_RESET;
+                    if(!monochrome_)
+                        codeGuess += text.ANSI_WHITE + text.ANSI_BULLET + text.ANSI_RESET;
+                    else
+                        codeGuess += "W";
                     break;
                 case green:
-                    codeGuess += text.ANSI_GREEN + text.ANSI_BULLET + text.ANSI_RESET;
+                    if(!monochrome_)
+                        codeGuess += text.ANSI_GREEN + text.ANSI_BULLET + text.ANSI_RESET;
+                    else
+                        codeGuess += "G";
                     break;
             }
         }
